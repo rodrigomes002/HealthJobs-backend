@@ -2,10 +2,12 @@
 {
     public class Vaga
     {
+        public int Id { get; set; }
         public string Empresa { get; private set; }
         public string Cargo { get; private set; }
         public int Salario { get; private set; }
         public string Descricao { get; private set; }
+        public List<Candidatura> Candidaturas { get; private set; } = new List<Candidatura>();
 
         public Vaga(string empresa, string cargo, int salario, string descricao)
         {
