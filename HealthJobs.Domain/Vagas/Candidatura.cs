@@ -2,9 +2,9 @@
 {
     public class Candidatura
     {
-        public int Id { get; set; }
-        public Vaga Vaga { get; set; }
-        public string Candidato { get; set; }
+        public int Id { get; private set; }
+        public Vaga Vaga { get; private set; }
+        public string Candidato { get; private set; }
 
         public Candidatura(Vaga vaga, string candidato)
         {
