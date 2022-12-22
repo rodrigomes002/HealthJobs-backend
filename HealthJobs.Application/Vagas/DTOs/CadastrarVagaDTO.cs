@@ -7,5 +7,6 @@
         public string Cargo { get; set; }
         public int Salario { get; set; }
         public string Descricao { get; set; }
+        public string Candidato { get; set; }
     }
 }

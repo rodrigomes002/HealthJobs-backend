@@ -31,8 +31,7 @@ namespace HealthJobs.Application.Vagas.Handlers
         public async Task Candidatar(CadastrarVagaDTO request)
         {
             var vaga = await _vagaRepository.ListarPorIdAsync(request.Id);
-            var usuarioLogado = "Rodrigo";
-            var candidatura = new Candidatura(vaga, usuarioLogado);
+            var candidatura = new Candidatura(vaga, request.Candidato);
             vaga.InserirCandidatura(candidatura);
 
             _vagaRepository.Atualizar(vaga);
