@@ -2,5 +2,6 @@
 {
     public interface IVagaRepository
     {
+        void CadastrarAsync(Vaga vaga);
     }
 }
