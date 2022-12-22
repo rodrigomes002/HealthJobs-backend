@@ -1,5 +1,6 @@
 using HealthJobs.Application.Vagas.Commands;
-using MediatR;
+using HealthJobs.Application.Vagas.Handlers;
+using HealthJobs.Domain.Vagas;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HealthJobs.API.Controllers
@@ -9,19 +10,58 @@ namespace HealthJobs.API.Controllers
     public class VagaController : ControllerBase
     {
         private readonly ILogger<VagaController> _logger;
-        private readonly IMediator _mediator;
-
-        public VagaController(ILogger<VagaController> logger, IMediator mediator)
+        private readonly VagaService _service;
+        public VagaController(ILogger<VagaController> logger, VagaService service)
         {
             _logger = logger;
-            _mediator = mediator;
+            _service = service;
+        }
+
+        [HttpGet, Route("vagas")]
+        public async Task<List<Vaga>> ListarVagas()
+        {
+            try
+            {
+                return await _service.Listar();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                throw;
+            }
+
         }
 
         [HttpPost, Route("cadastrar")]
-        public IActionResult CadastrarVaga(CadastrarVagaCommand request)
+        public async Task<IActionResult> CadastrarVaga([FromBody] CadastrarVagaDTO request)
         {
-            _mediator.Send(request);
-            return StatusCode(201);
+            try
+            {
+                await _service.Cadastrar(request);
+                return StatusCode(201);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                throw;
+            }
+
+        }
+
+        [HttpPost, Route("candidatar")]
+        public async Task<IActionResult> Candidatar([FromBody] CadastrarVagaDTO request)
+        {
+            try
+            {
+                await _service.Candidatar(request);
+                return StatusCode(201);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                throw;
+            }
+
         }
 
     }

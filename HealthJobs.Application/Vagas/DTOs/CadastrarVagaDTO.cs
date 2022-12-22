@@ -1,9 +1,8 @@
-﻿using MediatR;
-
-namespace HealthJobs.Application.Vagas.Commands
+﻿namespace HealthJobs.Application.Vagas.Commands
 {
-    public class CadastrarVagaCommand : IRequest<bool>
+    public class CadastrarVagaDTO
     {
+        public int Id { get; set; }
         public string Empresa { get; set; }
         public string Cargo { get; set; }
         public int Salario { get; set; }

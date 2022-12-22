@@ -23,6 +23,26 @@ namespace HealthJobs.Test.Vagas
             vagaEsperada.ToExpectedObject().ShouldMatch(vaga);
         }
 
+        [Fact]
+        public void NaoDeveInserirCandidaturaSemCandidato()
+        {
+            var vagaEsperada = new
+            {
+                Empresa = "Clinica de saúde",
+                Cargo = "Fisioterapeuta",
+                Salario = 10000,
+                Descricao = "Uma descrição"
+            };
+
+            var vaga = new Vaga(vagaEsperada.Empresa, vagaEsperada.Cargo, vagaEsperada.Salario, vagaEsperada.Descricao);
+            Candidatura candidatura = null;
+            
+            var ex = Assert.Throws<ArgumentException>(() => vaga.InserirCandidatura(candidatura));
+
+            Assert.Equal("Candidatura inválida!", ex.Message);
+
+        }
+
         [Theory]
         [InlineData("")]
         [InlineData(null)]

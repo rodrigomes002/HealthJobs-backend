@@ -18,7 +18,7 @@ namespace HealthJobs.Infra.UoW
 
         public void Dispose()
         {
-            applicationContext.Dispose();
+            applicationContext.DisposeAsync();
         }
     }
 }

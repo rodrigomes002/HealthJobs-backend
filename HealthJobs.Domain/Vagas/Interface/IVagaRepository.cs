@@ -2,6 +2,9 @@
 {
     public interface IVagaRepository
     {
-        void CadastrarAsync(Vaga vaga);
+        Task CadastrarAsync(Vaga vaga);
+        void Atualizar(Vaga vaga);
+        Task<Vaga> ListarPorIdAsync(int id);
+        Task<List<Vaga>> ListarAsync();
     }
 }

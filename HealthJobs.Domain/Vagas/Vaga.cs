@@ -20,5 +20,12 @@
             this.Salario = salario;
             this.Descricao = descricao;
         }
+
+        public void InserirCandidatura(Candidatura candidatura)
+        {
+            if (candidatura is null) throw new ArgumentException("Candidatura inválida!");
+
+            Candidaturas.Add(candidatura);
+        }
     }
 }
