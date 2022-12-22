@@ -1,12 +1,14 @@
 using HealthJobs.Application.Vagas.Commands;
 using HealthJobs.Application.Vagas.Handlers;
 using HealthJobs.Domain.Vagas;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HealthJobs.API.Controllers
 {
     [ApiController]
     [Route("api/vaga")]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     public class VagaController : ControllerBase
     {
         private readonly ILogger<VagaController> _logger;
