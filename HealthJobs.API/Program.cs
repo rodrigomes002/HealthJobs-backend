@@ -8,17 +8,14 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using System.Diagnostics.Metrics;
-using System.Reflection.Metadata;
 using System.Text;
 using System.Text.Json.Serialization;
-using static System.Net.Mime.MediaTypeNames;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<ApplicationContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddScoped<VagaService>();
 builder.Services.AddScoped<IVagaRepository, VagaRepository>();
 builder.Services.AddScoped<ICandidaturaRepository, CandidaturaRepository>();
