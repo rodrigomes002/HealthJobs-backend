@@ -25,7 +25,7 @@ namespace HealthJobs.Application.Vagas.Handlers
             var vaga = new Vaga(request.Empresa, request.Cargo, request.Salario, request.Descricao);
 
             await _vagaRepository.CadastrarAsync(vaga);
-            _unitOfWork.Commit();
+            await _unitOfWork.CommitAsync();
         }
 
         public async Task Candidatar(CadastrarVagaDTO request)
@@ -35,7 +35,7 @@ namespace HealthJobs.Application.Vagas.Handlers
             vaga.InserirCandidatura(candidatura);
 
             _vagaRepository.Atualizar(vaga);
-            _unitOfWork.Commit();
+           await _unitOfWork.CommitAsync();
         }
     }
 }

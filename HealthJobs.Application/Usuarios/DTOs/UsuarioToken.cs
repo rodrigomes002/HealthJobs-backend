@@ -1,6 +1,6 @@
-﻿namespace HealthJobs.API.Controllers
+﻿namespace HealthJobs.Application.Autenticacao.DTOs
 {
-    internal class UsuarioToken
+    public class UsuarioToken
     {
         public bool Authenticated { get; set; }
         public string Token { get; set; }

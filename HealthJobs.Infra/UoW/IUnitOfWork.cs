@@ -2,7 +2,7 @@
 {
     public interface IUnitOfWork
     {
-        void Commit();
-        void Dispose();
+        Task CommitAsync();
+        Task DisposeAsync();
     }
 }

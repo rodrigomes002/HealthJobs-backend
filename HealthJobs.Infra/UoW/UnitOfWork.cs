@@ -11,14 +11,14 @@ namespace HealthJobs.Infra.UoW
             this.applicationContext = applicationContext;
         }
 
-        public void Commit()
+        public async Task CommitAsync()
         {
-            applicationContext.SaveChangesAsync();
+           await this.applicationContext.SaveChangesAsync();
         }
 
-        public void Dispose()
+        public async Task DisposeAsync()
         {
-            applicationContext.DisposeAsync();
+            await this.applicationContext.DisposeAsync();
         }
     }
 }

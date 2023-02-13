@@ -1,16 +1,17 @@
-﻿using HealthJobs.Domain.Vagas;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using HealthJobs.Domain.Usuarios;
+using HealthJobs.Domain.Vagas;
 using Microsoft.EntityFrameworkCore;
 
 namespace HealthJobs.Infra.Context
 {
-    public class ApplicationContext : IdentityDbContext
+    public class ApplicationContext : DbContext
     {
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {
         }
 
-        public DbSet<Vaga>? Vaga { get; set; }
-        public DbSet<Candidatura>? Candidatura { get; set; }
+        public DbSet<Usuario>? Usuarios { get; set; }
+        public DbSet<Vaga>? Vagas { get; set; }
+        public DbSet<Candidatura>? Candidaturas { get; set; }
     }
 }

@@ -14,7 +14,7 @@
             if (String.IsNullOrEmpty(empresa)) throw new ArgumentException("Empresa inválida!");
             if (String.IsNullOrEmpty(cargo)) throw new ArgumentException("Cargo inválido!");
             if (String.IsNullOrEmpty(descricao)) throw new ArgumentException("Descrição inválida!");
-            
+
             this.Empresa = empresa;
             this.Cargo = cargo;
             this.Salario = salario;

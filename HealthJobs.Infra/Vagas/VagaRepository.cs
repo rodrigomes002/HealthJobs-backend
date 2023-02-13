@@ -16,24 +16,24 @@ namespace HealthJobs.Infra.Vagas
 
         public void Atualizar(Vaga vaga)
         {
-           _context.Vaga.Update(vaga);
+           _context.Vagas.Update(vaga);
         }
 
         public async Task CadastrarAsync(Vaga vaga)
         {
-            await _context.Vaga.AddAsync(vaga);
+            await _context.Vagas.AddAsync(vaga);
         }
 
         public async Task<List<Vaga>> ListarAsync()
         {
-            return await _context.Vaga
+            return await _context.Vagas
                 .Include(c=> c.Candidaturas)
                 .ToListAsync();
         }
 
         public async Task<Vaga> ListarPorIdAsync(int id)
         {
-            return await _context.Vaga.Where(v => v.Id == id).FirstOrDefaultAsync();
+            return await _context.Vagas.Where(v => v.Id == id).FirstOrDefaultAsync();
         }
     }
 }
