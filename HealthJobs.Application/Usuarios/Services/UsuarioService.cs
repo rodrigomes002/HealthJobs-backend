@@ -1,4 +1,5 @@
 ﻿using HealthJobs.Application.Autenticacao.DTOs;
+using HealthJobs.Application.Usuarios.DTOs;
 using HealthJobs.Application.Usuarios.Services;
 using HealthJobs.Domain.Usuarios;
 using HealthJobs.Domain.Usuarios.Interface;
@@ -20,9 +21,9 @@ namespace HealthJobs.Application.Autenticacao.Services
             this._configuration = configuration;
         }
 
-        public async Task<UsuarioToken> Login(UsuarioDTO dto)
+        public async Task<UsuarioToken> Login(LoginDTO dto)
         {
-            var usuarioExiste = this._usuarioRepository.Verificar(dto.Email, dto.Senha);
+            var usuarioExiste = await this._usuarioRepository.Verificar(dto.Email, dto.Senha);
             if (usuarioExiste == null)
                 throw new Exception("Usuário ou Senha inválidos");
 

@@ -1,5 +1,6 @@
 ﻿using HealthJobs.Application.Autenticacao.DTOs;
 using HealthJobs.Application.Autenticacao.Services;
+using HealthJobs.Application.Usuarios.DTOs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -26,13 +27,13 @@ namespace HealthJobs.API.Controllers
             }
             catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
         }
 
         [AllowAnonymous]
         [HttpPost("login")]
-        public async Task<ActionResult<UsuarioToken>> Login([FromBody] UsuarioDTO dto)
+        public async Task<ActionResult<UsuarioToken>> Login([FromBody] LoginDTO dto)
         {
             try
             {
@@ -41,7 +42,7 @@ namespace HealthJobs.API.Controllers
             }
             catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
         }
     }

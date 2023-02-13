@@ -1,4 +1,5 @@
 ﻿using HealthJobs.Application.Autenticacao.DTOs;
+using HealthJobs.Application.Usuarios.DTOs;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -16,7 +17,7 @@ namespace HealthJobs.Application.Usuarios.Services
             this._configuration = configuration;
         }
 
-        public UsuarioToken GeraToken(UsuarioDTO dto)
+        public UsuarioToken GeraToken(LoginDTO dto)
         {
             var claims = new[]
             {
