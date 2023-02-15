@@ -21,7 +21,7 @@ namespace HealthJobs.Application.Usuarios.Services
         {
             var claims = new[]
             {
-                new Claim(JwtRegisteredClaimNames.UniqueName, dto.Email),
+                new Claim(JwtRegisteredClaimNames.UniqueName, dto.Email),                
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 

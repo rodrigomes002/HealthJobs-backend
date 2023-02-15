@@ -1,49 +1,41 @@
 ﻿using HealthJobs.Application.Autenticacao.DTOs;
 using HealthJobs.Application.Usuarios.DTOs;
-using HealthJobs.Application.Usuarios.Services;
-using HealthJobs.Domain.Usuarios;
-using HealthJobs.Domain.Usuarios.Interface;
-using HealthJobs.Infra.UoW;
-using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Identity;
 
 namespace HealthJobs.Application.Autenticacao.Services
 {
     public class UsuarioService
     {
-        private readonly IUsuarioRepository _usuarioRepository;
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IConfiguration _configuration;
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<IdentityUser> _signInManager;
 
-        public UsuarioService(IUsuarioRepository usuarioRepository, IUnitOfWork unitOfWork, IConfiguration configuration)
+        public UsuarioService(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
         {
-            this._usuarioRepository = usuarioRepository;
-            this._unitOfWork = unitOfWork;
-            this._configuration = configuration;
+            this._userManager = userManager;
+            this._signInManager = signInManager;
         }
 
-        public async Task<UsuarioToken> Login(LoginDTO dto)
+        public async Task<SignInResult> Login(LoginDTO dto)
         {
-            var usuarioExiste = await this._usuarioRepository.Verificar(dto.Email, dto.Senha);
-            if (usuarioExiste == null)
-                throw new ApplicationException("Usuário ou Senha inválidos");
+            var result = await _signInManager.PasswordSignInAsync(dto.Email,
+                 dto.Senha, isPersistent: false, lockoutOnFailure: false);
 
-            return new JwtService(_configuration).GeraToken(dto);
+            return result;
 
         }
 
-        public async Task Cadastrar(UsuarioDTO dto)
+        public async Task<IdentityResult> Cadastrar(UsuarioDTO dto)
         {
-            var usuarioExiste = await this._usuarioRepository.ListarPorEmail(dto.Email);
-            if (usuarioExiste != null)
-                throw new ApplicationException("Já existe um usuário com este email cadastrado");            
+            var user = new IdentityUser
+            {
+                UserName = dto.Email,
+                Email = dto.Email,
+                EmailConfirmed = false
+            };
 
-            var usuario = new Usuario();
-            usuario.Email = dto.Email;
-            usuario.Senha = dto.Senha;
-            usuario.Tipo = dto.Tipo;
+            var result = await _userManager.CreateAsync(user, dto.Senha);
 
-            await this._usuarioRepository.Cadastrar(usuario);
-            await this._unitOfWork.CommitAsync();
+            return result;
         }
     }
 }
