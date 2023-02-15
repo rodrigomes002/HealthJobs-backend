@@ -23,9 +23,9 @@ namespace HealthJobs.API.Controllers
             try
             {
                 await this._usuarioService.Cadastrar(dto);
-                return Ok("Usuário cadastrado com sucesso");
+                return Ok();
             }
-            catch (Exception ex)
+            catch (ApplicationException ex)
             {
                 throw ex;
             }
@@ -40,7 +40,7 @@ namespace HealthJobs.API.Controllers
                 var usuario = await this._usuarioService.Login(dto);
                 return Ok(usuario);
             }
-            catch (Exception ex)
+            catch (ApplicationException ex)
             {
                 throw ex;
             }

@@ -25,7 +25,7 @@ namespace HealthJobs.Application.Autenticacao.Services
         {
             var usuarioExiste = await this._usuarioRepository.Verificar(dto.Email, dto.Senha);
             if (usuarioExiste == null)
-                throw new Exception("Usuário ou Senha inválidos");
+                throw new ApplicationException("Usuário ou Senha inválidos");
 
             return new JwtService(_configuration).GeraToken(dto);
 
@@ -35,7 +35,7 @@ namespace HealthJobs.Application.Autenticacao.Services
         {
             var usuarioExiste = await this._usuarioRepository.ListarPorEmail(dto.Email);
             if (usuarioExiste != null)
-                throw new Exception("Já existe um usuário com este email cadastrado");
+                throw new ApplicationException("Já existe um usuário com este email cadastrado");            
 
             var usuario = new Usuario();
             usuario.Email = dto.Email;
