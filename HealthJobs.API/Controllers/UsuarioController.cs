@@ -12,11 +12,13 @@ namespace HealthJobs.API.Controllers
     public class UsuarioController : ControllerBase
     {
         private readonly UsuarioService _usuarioService;
+        private readonly JwtService _jwtService;
         private readonly IConfiguration _configuration;
-        public UsuarioController(UsuarioService usuarioService, IConfiguration configuration)
+        public UsuarioController(UsuarioService usuarioService, JwtService jwtService, IConfiguration configuration)
         {
             this._usuarioService = usuarioService;
             this._configuration = configuration;
+            this._jwtService = jwtService;
         }
 
         [AllowAnonymous]
@@ -25,10 +27,10 @@ namespace HealthJobs.API.Controllers
         {
             var result = await this._usuarioService.Cadastrar(dto);
 
-            if (!result.Succeeded)
-                return BadRequest(result.Errors);
+            if (!result.Result.Succeeded)
+                return BadRequest(result.Result.Errors);
 
-            return Ok();
+            return Ok(await _jwtService.GeraToken(result.User));
         }
 
         [AllowAnonymous]
@@ -37,10 +39,10 @@ namespace HealthJobs.API.Controllers
         {
             var result = await this._usuarioService.Login(dto);
 
-            if (!result.Succeeded)
+            if (!result.Result.Succeeded)
                 return BadRequest();
 
-            return Ok(new JwtService(_configuration).GeraToken(dto));
+            return Ok(await _jwtService.GeraToken(result.User));
 
         }
     }

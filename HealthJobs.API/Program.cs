@@ -1,5 +1,6 @@
 using HealthJobs.API.Extensions;
 using HealthJobs.Application.Autenticacao.Services;
+using HealthJobs.Application.Usuarios.Services;
 using HealthJobs.Application.Vagas.Handlers;
 using HealthJobs.Domain.Vagas.Interface;
 using HealthJobs.Infra.Context;
@@ -20,6 +21,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddScoped<VagaService>();
 builder.Services.AddScoped<UsuarioService>();
+builder.Services.AddScoped<JwtService>();
 builder.Services.AddScoped<IVagaRepository, VagaRepository>();
 builder.Services.AddScoped<ICandidaturaRepository, CandidaturaRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();

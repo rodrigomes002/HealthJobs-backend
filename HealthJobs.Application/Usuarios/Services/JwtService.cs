@@ -1,5 +1,5 @@
 ﻿using HealthJobs.Application.Autenticacao.DTOs;
-using HealthJobs.Application.Usuarios.DTOs;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -10,19 +10,23 @@ namespace HealthJobs.Application.Usuarios.Services
 {
     public class JwtService
     {
+        private readonly UserManager<IdentityUser> _userManager;
         private readonly IConfiguration _configuration;
-
-        public JwtService(IConfiguration configuration)
+        public JwtService(IConfiguration configuration, UserManager<IdentityUser> userManager)
         {
-            this._configuration = configuration;
+            _configuration = configuration;
+            _userManager = userManager;
         }
 
-        public UsuarioToken GeraToken(LoginDTO dto)
+        public async Task<UsuarioToken> GeraToken(IdentityUser user)
         {
+            var roles = await _userManager.GetRolesAsync(user);
+
             var claims = new[]
             {
-                new Claim(JwtRegisteredClaimNames.UniqueName, dto.Email),                
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                new Claim(JwtRegisteredClaimNames.UniqueName, user.Email),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                new Claim("role", roles[0])
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));

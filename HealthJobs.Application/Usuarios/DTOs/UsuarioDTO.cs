@@ -1,4 +1,6 @@
-﻿namespace HealthJobs.Application.Autenticacao.DTOs
+﻿using HealthJobs.Domain;
+
+namespace HealthJobs.Application.Autenticacao.DTOs
 {
     public class UsuarioDTO
     {

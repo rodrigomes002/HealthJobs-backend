@@ -20,7 +20,7 @@ namespace HealthJobs.API.Controllers
         }
 
         [HttpGet, Route("vagas")]
-        [Authorize(Roles = "ADM")]
+        [Authorize(Roles = "")]
         public async Task<List<Vaga>> ListarVagas()
         {
             try
