@@ -19,8 +19,7 @@ namespace HealthJobs.API.Controllers
             _service = service;
         }
 
-        [HttpGet, Route("vagas")]
-        [Authorize(Roles = "")]
+        [HttpGet, Route("vagas")]        
         public async Task<List<Vaga>> ListarVagas()
         {
             try
@@ -36,6 +35,7 @@ namespace HealthJobs.API.Controllers
         }
 
         [HttpPost, Route("cadastrar")]
+        [Authorize(Roles = "Empresa")]
         public async Task<IActionResult> CadastrarVaga([FromBody] CadastrarVagaDTO request)
         {
             try
@@ -52,6 +52,7 @@ namespace HealthJobs.API.Controllers
         }
 
         [HttpPost, Route("candidatar")]
+        [Authorize(Roles = "Profissional")]
         public async Task<IActionResult> Candidatar([FromBody] CadastrarVagaDTO request)
         {
             try
