@@ -1,6 +1,8 @@
 using HealthJobs.Application.Vagas.Commands;
+using HealthJobs.Application.Vagas.DTOs;
 using HealthJobs.Application.Vagas.Handlers;
 using HealthJobs.Domain.Vagas;
+using HealthJobs.Domain.Vagas.Filtro;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -34,6 +36,21 @@ namespace HealthJobs.API.Controllers
 
         }
 
+        [HttpPost, Route("vagas")]
+        public async Task<VagaResult> ListarVagasPorFiltro(VagaFiltro filtro)
+        {
+            try
+            {
+                return await _service.ListarPorFiltro(filtro);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                throw;
+            }
+
+        }
+
         [HttpPost, Route("cadastrar")]
         [Authorize(Roles = "Empresa")]
         public async Task<IActionResult> CadastrarVaga([FromBody] CadastrarVagaDTO request)
@@ -53,7 +70,7 @@ namespace HealthJobs.API.Controllers
 
         [HttpPost, Route("candidatar")]
         [Authorize(Roles = "Profissional")]
-        public async Task<IActionResult> Candidatar([FromBody] CadastrarVagaDTO request)
+        public async Task<IActionResult> Candidatar([FromBody] VagaDTO request)
         {
             try
             {

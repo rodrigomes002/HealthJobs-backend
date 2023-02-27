@@ -1,5 +1,7 @@
 ﻿using HealthJobs.Application.Vagas.Commands;
+using HealthJobs.Application.Vagas.DTOs;
 using HealthJobs.Domain.Vagas;
+using HealthJobs.Domain.Vagas.Filtro;
 using HealthJobs.Domain.Vagas.Interface;
 using HealthJobs.Infra.UoW;
 
@@ -19,16 +21,24 @@ namespace HealthJobs.Application.Vagas.Handlers
         {
             return await _vagaRepository.ListarAsync();
         }
+        public async Task<VagaResult> ListarPorFiltro(VagaFiltro filtro)
+        {
+            var result = new VagaResult();
+            result.Vagas = await _vagaRepository.ListarPorFiltroAsync(filtro); ;
+            result.Count = await _vagaRepository.Count(filtro);
+            return result;
+        }
+
 
         public async Task Cadastrar(CadastrarVagaDTO request)
         {
-            var vaga = new Vaga(request.Empresa, request.Cargo, request.Salario, request.Descricao);
+            var vaga = new Vaga(request.Empresa, request.Cargo, request.Salario, request.Local, request.Descricao);
 
             await _vagaRepository.CadastrarAsync(vaga);
             await _unitOfWork.CommitAsync();
         }
 
-        public async Task Candidatar(CadastrarVagaDTO request)
+        public async Task Candidatar(VagaDTO request)
         {
             var vaga = await _vagaRepository.ListarPorIdAsync(request.Id);
             var candidatura = new Candidatura(vaga, request.Candidato);

@@ -8,7 +8,7 @@ namespace HealthJobs.Test.Vagas
         [Fact]
         public void DeveCriarCandidatura()
         {
-            var vaga = new Vaga("Clinica de saúde", "Fisioterapeuta", 10000, "Uma descrição");
+            var vaga = new Vaga("Clinica de saúde", "Fisioterapeuta", 10000, "Rio de Janeiro", "Uma descrição");
 
             var candidaturaEsperada = new
             {
@@ -26,7 +26,7 @@ namespace HealthJobs.Test.Vagas
         [InlineData(null)]
         public void NaoDeveCriarCandidaturaComCandidatoInvalido(string candidato)
         {
-            var vaga = new Vaga("Clinica de saúde", "Fisioterapeuta", 10000, "Uma descrição");
+            var vaga = new Vaga("Clinica de saúde", "Fisioterapeuta", 10000, "Rio de Janeiro", "Uma descrição");
 
             var candidaturaEsperada = new
             {

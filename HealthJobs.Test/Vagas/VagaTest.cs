@@ -15,10 +15,11 @@ namespace HealthJobs.Test.Vagas
                 Empresa = "Clinica de saúde",
                 Cargo = "Fisioterapeuta",
                 Salario = 10000,
+                Local = "Rio de Janeiro",
                 Descricao = "Uma descrição"
             };
 
-            var vaga = new Vaga(vagaEsperada.Empresa, vagaEsperada.Cargo, vagaEsperada.Salario, vagaEsperada.Descricao);
+            var vaga = new Vaga(vagaEsperada.Empresa, vagaEsperada.Cargo, vagaEsperada.Salario, vagaEsperada.Local, vagaEsperada.Descricao);
 
             vagaEsperada.ToExpectedObject().ShouldMatch(vaga);
         }
@@ -31,12 +32,13 @@ namespace HealthJobs.Test.Vagas
                 Empresa = "Clinica de saúde",
                 Cargo = "Fisioterapeuta",
                 Salario = 10000,
+                Local = "Rio de Janeiro",
                 Descricao = "Uma descrição"
             };
 
-            var vaga = new Vaga(vagaEsperada.Empresa, vagaEsperada.Cargo, vagaEsperada.Salario, vagaEsperada.Descricao);
+            var vaga = new Vaga(vagaEsperada.Empresa, vagaEsperada.Cargo, vagaEsperada.Salario, vagaEsperada.Local, vagaEsperada.Descricao);
             Candidatura candidatura = null;
-            
+
             var ex = Assert.Throws<ArgumentException>(() => vaga.InserirCandidatura(candidatura));
 
             Assert.Equal("Candidatura inválida!", ex.Message);
@@ -53,10 +55,11 @@ namespace HealthJobs.Test.Vagas
                 Empresa = empresa,
                 Cargo = "Fisioterapeuta",
                 Salario = 10000,
+                Local = "Rio de Janeiro",
                 Descricao = "Uma descrição"
             };
 
-            var ex = Assert.Throws<ArgumentException>(() => new Vaga(vagaEsperada.Empresa, vagaEsperada.Cargo, vagaEsperada.Salario, vagaEsperada.Descricao));
+            var ex = Assert.Throws<ArgumentException>(() => new Vaga(vagaEsperada.Empresa, vagaEsperada.Cargo, vagaEsperada.Salario, vagaEsperada.Local, vagaEsperada.Descricao));
 
             Assert.Equal("Empresa inválida!", ex.Message);
         }
@@ -71,10 +74,11 @@ namespace HealthJobs.Test.Vagas
                 Empresa = "Clinica de saúde",
                 Cargo = cargo,
                 Salario = 10000,
+                Local = "Rio de Janeiro",
                 Descricao = "Uma descrição"
             };
 
-            var ex = Assert.Throws<ArgumentException>(() => new Vaga(vagaEsperada.Empresa, vagaEsperada.Cargo, vagaEsperada.Salario, vagaEsperada.Descricao));
+            var ex = Assert.Throws<ArgumentException>(() => new Vaga(vagaEsperada.Empresa, vagaEsperada.Cargo, vagaEsperada.Salario, vagaEsperada.Local, vagaEsperada.Descricao));
 
             Assert.Equal("Cargo inválido!", ex.Message);
         }
@@ -89,10 +93,11 @@ namespace HealthJobs.Test.Vagas
                 Empresa = "Clinica de saúde",
                 Cargo = "Fisioterapeuta",
                 Salario = 10000,
+                Local = "Rio de Janeiro",
                 Descricao = descricao
             };
 
-            var ex = Assert.Throws<ArgumentException>(() => new Vaga(vagaEsperada.Empresa, vagaEsperada.Cargo, vagaEsperada.Salario, vagaEsperada.Descricao));
+            var ex = Assert.Throws<ArgumentException>(() => new Vaga(vagaEsperada.Empresa, vagaEsperada.Cargo, vagaEsperada.Salario, vagaEsperada.Local, vagaEsperada.Descricao));
 
             Assert.Equal("Descrição inválida!", ex.Message);
         }

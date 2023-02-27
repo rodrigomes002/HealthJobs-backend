@@ -1,4 +1,6 @@
-﻿namespace HealthJobs.Domain.Vagas.Interface
+﻿using HealthJobs.Domain.Vagas.Filtro;
+
+namespace HealthJobs.Domain.Vagas.Interface
 {
     public interface IVagaRepository
     {
@@ -6,5 +8,7 @@
         void Atualizar(Vaga vaga);
         Task<Vaga> ListarPorIdAsync(int id);
         Task<List<Vaga>> ListarAsync();
+        Task<List<Vaga>> ListarPorFiltroAsync(VagaFiltro filtro);
+        Task<int> Count(VagaFiltro filtro);
     }
 }
