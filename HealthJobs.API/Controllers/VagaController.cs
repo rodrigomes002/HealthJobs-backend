@@ -41,7 +41,23 @@ namespace HealthJobs.API.Controllers
         {
             try
             {
-                return await _service.ListarPorFiltro(filtro);
+                var result = await _service.ListarPorFiltro(filtro);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                throw;
+            }
+
+        }
+
+        [HttpGet, Route("filtros")]
+        public async Task<Filtros> Filtros()
+        {
+            try
+            {
+                return await _service.ListarFiltros();
             }
             catch (Exception ex)
             {
@@ -70,7 +86,7 @@ namespace HealthJobs.API.Controllers
 
         [HttpPost, Route("candidatar")]
         [Authorize(Roles = "Profissional")]
-        public async Task<IActionResult> Candidatar([FromBody] VagaDTO request)
+        public async Task<IActionResult> Candidatar([FromBody] CandidaturaDTO request)
         {
             try
             {

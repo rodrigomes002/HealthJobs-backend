@@ -40,6 +40,22 @@ namespace HealthJobs.Infra.Vagas
                 .ToListAsync();
         }
 
+        public async Task<List<string>> ListarCargosAsync()
+        {
+            return await _context.Vagas
+                .Select(c => c.Cargo)
+                .Distinct()
+                .ToListAsync();
+        }
+
+        public async Task<List<string>> ListarLocaisAsync()
+        {
+            return await _context.Vagas
+                .Select(c => c.Local)
+                .Distinct()
+                .ToListAsync();
+        }
+
         public async Task<List<Vaga>> ListarPorFiltroAsync(VagaFiltro filtro)
         {
             var dados = await _context.Vagas

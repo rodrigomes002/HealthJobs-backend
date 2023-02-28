@@ -9,6 +9,8 @@ namespace HealthJobs.Domain.Vagas.Interface
         Task<Vaga> ListarPorIdAsync(int id);
         Task<List<Vaga>> ListarAsync();
         Task<List<Vaga>> ListarPorFiltroAsync(VagaFiltro filtro);
+        Task<List<string>> ListarCargosAsync();
+        Task<List<string>> ListarLocaisAsync();
         Task<int> Count(VagaFiltro filtro);
     }
 }
